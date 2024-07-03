@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:favourite_places/providers/user_places.dart';
+import 'package:favourite_places/Widgets/image_input.dart';
 
 class AddPlaceScreen extends ConsumerWidget {
   const AddPlaceScreen({super.key});
@@ -10,6 +13,7 @@ class AddPlaceScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formkey = GlobalKey<FormState>();
     var enteredTitle = '';
+    File? selectedImage;
 
     return Scaffold(
       appBar: AppBar(
@@ -42,13 +46,19 @@ class AddPlaceScreen extends ConsumerWidget {
                   enteredTitle = newValue!.trim();
                 },
               ),
+              ImageInput(
+                onPickImage: (image) {
+                  selectedImage = image;
+                },
+              ),
               ElevatedButton.icon(
                 onPressed: () {
-                  if (formkey.currentState!.validate()) {
+                  if (formkey.currentState!.validate() &&
+                      selectedImage != null) {
                     formkey.currentState!.save();
                     ref
                         .read(userPlacesProvider.notifier)
-                        .addPlace(enteredTitle);
+                        .addPlace(enteredTitle, selectedImage!);
                     Navigator.of(context).pop();
                   }
                 },

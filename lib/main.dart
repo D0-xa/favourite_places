@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Great Places',
       theme: theme,
-      home: PlacesScreen(),
+      home: const PlacesScreen(),
     );
   }
 }

@@ -27,6 +27,14 @@ class PlacesList extends StatelessWidget {
     return ListView.builder(
       itemCount: places.length,
       itemBuilder: (context, index) => ListTile(
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+          vertical: 8.0,
+        ),
+        leading: CircleAvatar(
+          radius: 26,
+          foregroundImage: FileImage(places[index].image),
+        ),
         title: Text(places[index].title),
         titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
