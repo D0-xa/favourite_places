@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:favourite_places/Screens/places.dart';
 
 final kColorScheme = ColorScheme.fromSeed(
@@ -12,6 +12,9 @@ final kColorScheme = ColorScheme.fromSeed(
 
 final theme = ThemeData.dark(useMaterial3: true).copyWith(
   colorScheme: kColorScheme,
+  appBarTheme: const AppBarTheme().copyWith(
+    backgroundColor: kColorScheme.primaryContainer,
+  ),
   scaffoldBackgroundColor: kColorScheme.surface,
   textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
     titleLarge: GoogleFonts.ubuntuCondensed(
