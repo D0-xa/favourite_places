@@ -31,12 +31,19 @@ class PlacesList extends StatelessWidget {
           horizontal: 16.0,
           vertical: 8.0,
         ),
-        leading: CircleAvatar(
-          radius: 26,
-          foregroundImage: FileImage(places[index].image),
+        leading: Hero(
+          tag: places[index],
+          child: CircleAvatar(
+            radius: 26,
+            foregroundImage: FileImage(places[index].image),
+          ),
         ),
         title: Text(places[index].title),
+        subtitle: Text(places[index].location.address),
         titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+        subtitleTextStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
         onTap: () {

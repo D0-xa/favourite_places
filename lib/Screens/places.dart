@@ -23,6 +23,7 @@ class PlacesScreen extends ConsumerWidget {
           bottom: 24,
         ),
         child: FloatingActionButton(
+          heroTag: 1,
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(

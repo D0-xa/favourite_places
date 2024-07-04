@@ -18,48 +18,81 @@ class ImageInput extends StatefulWidget {
 class _ImageInputState extends State<ImageInput> {
   File? _selectedImage;
 
-  void _takePicture() async {
+  void _takePicture(String? tapped) async {
     final imagePicker = ImagePicker();
-    final pickedImage = await imagePicker.pickImage(
-      source: ImageSource.camera,
-      // maxWidth: 600,
-    );
+    if (tapped == 'camera') {
+      final pickedImage = await imagePicker.pickImage(
+        source: ImageSource.camera,
+        // maxWidth: 600,
+      );
 
-    if (pickedImage == null) {
-      return;
+      if (pickedImage == null) {
+        return;
+      }
+
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+      });
+    } else {
+      final pickedImage = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+        // maxWidth: 600,
+      );
+
+      if (pickedImage == null) {
+        return;
+      }
+
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+      });
     }
-
-    setState(() {
-      _selectedImage = File(pickedImage.path);
-    });
 
     widget.onPickImage(_selectedImage!);
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget content = TextButton.icon(
-      onPressed: _takePicture,
-      label: const Text('Choose Photo'),
-      icon: const Icon(Icons.camera_alt_rounded),
+    Widget content = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton.icon(
+          onPressed: () {
+            _takePicture('camera');
+          },
+          label: const Text('Camera'),
+          icon: const Icon(Icons.camera_alt_rounded),
+        ),
+        TextButton.icon(
+          onPressed: () {
+            _takePicture(null);
+          },
+          label: const Text('Choose Photo'),
+          icon: const Icon(Icons.filter),
+        ),
+      ],
     );
 
     if (_selectedImage != null) {
       content = GestureDetector(
-        onTap: _takePicture,
+        onTap: () {
+          _takePicture('camera');
+        },
         child: Image.file(
           _selectedImage!,
           fit: BoxFit.cover,
           height: double.infinity,
           width: double.infinity,
+          filterQuality: FilterQuality.medium,
         ),
       );
     }
 
     return Container(
+      clipBehavior: Clip.hardEdge,
       margin: const EdgeInsets.only(
         top: 8,
-        bottom: 16,
+        bottom: 12,
       ),
       decoration: BoxDecoration(
         border: Border.all(
