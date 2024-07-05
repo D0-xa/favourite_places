@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:favourite_places/Models/place.dart';
 
 class UserPlacesNotifier extends StateNotifier<List<Place>> {
   UserPlacesNotifier() : super(const []);
+  String? apiKey = dotenv.env['GOOGLE_CLOUD_API_KEY'];
 
   void addPlace(String title, File image, PlaceLocation location) {
     final newPlace = Place(title: title, image: image, location: location);
@@ -15,7 +17,7 @@ class UserPlacesNotifier extends StateNotifier<List<Place>> {
   String getLocationImage(Place place) {
     final lat = place.location.latitude;
     final lng = place.location.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat, $lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=AIzaSyB7UHUfGxwnuxlWOJmNNcfBAzyDFtPXbVk';
+    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat, $lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=$apiKey';
   }
 }
 
