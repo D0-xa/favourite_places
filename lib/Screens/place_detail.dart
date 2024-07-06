@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:favourite_places/Models/place.dart';
 import 'package:favourite_places/providers/user_places.dart';
+import 'package:favourite_places/Screens/map.dart';
 
 class PlaceDetailScreen extends ConsumerWidget {
   const PlaceDetailScreen(this.place, {super.key});
@@ -32,12 +33,23 @@ class PlaceDetailScreen extends ConsumerWidget {
               right: 0,
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 70,
-                    foregroundImage: NetworkImage(
-                      ref
-                          .read(userPlacesProvider.notifier)
-                          .getLocationImage(place),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) => MapScreen(
+                            location: place.location,
+                          ),
+                        ),
+                      );
+                    },
+                    child: CircleAvatar(
+                      radius: 70,
+                      foregroundImage: NetworkImage(
+                        ref
+                            .read(userPlacesProvider.notifier)
+                            .getLocationImage(place),
+                      ),
                     ),
                   ),
                   Container(
