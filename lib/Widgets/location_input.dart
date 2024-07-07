@@ -121,7 +121,7 @@ class _LocationInputState extends State<LocationInput> {
     );
 
     if (_isGettingLocation) {
-      previewContent = const CircularProgressIndicator();
+      previewContent = const CircularProgressIndicator.adaptive();
     }
 
     if (_pickedLocation != null) {

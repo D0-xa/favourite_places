@@ -21,7 +21,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   bool _isSelected = false;
-  LatLng? _pickedLocation;
+  late LatLng _pickedLocation;
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _MapScreenState extends State<MapScreen> {
                 });
               },
         initialCameraPosition: CameraPosition(
-          target: _pickedLocation!,
+          target: _pickedLocation,
           zoom: 16,
         ),
         markers: (isSelecting && !_isSelected)
@@ -67,7 +67,7 @@ class _MapScreenState extends State<MapScreen> {
             : {
                 Marker(
                   markerId: const MarkerId('m1'),
-                  position: _pickedLocation!,
+                  position: _pickedLocation,
                 ),
               },
       ),
