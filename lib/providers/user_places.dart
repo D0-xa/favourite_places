@@ -29,7 +29,7 @@ class UserPlacesNotifier extends StateNotifier<List<Place>> {
   Future<void> loadPlaces() async {
     final db = await _getDatabase();
     final data = await db.query('user_places');
-    final places = data
+    final places = data.reversed
         .map(
           (row) => Place(
             id: row['id'] as String,
